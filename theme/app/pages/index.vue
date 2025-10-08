@@ -12,6 +12,13 @@ const hasProducts = computed<boolean>(
   () => Array.isArray(allProducts) && allProducts.length > 0
 );
 
+const { data: termsData } = await useAsyncGql("getAllTerms", {
+  taxonomies: ["PRODUCTCATEGORY"],
+});
+const productCategoryTerms = termsData.value?.terms?.nodes?.filter(
+  (term) => term.taxonomyName === "product_cat"
+);
+
 onMounted(() => {
   if (!isQueryEmpty.value) updateProductList();
 });
@@ -31,9 +38,14 @@ useHead({
 </script>
 
 <template>
+  <div class="p-4 border-b border-black">
+    <h1 class="text-8xl">Shop</h1>
+  </div>
+  <div class="p-4 border-b border-black">
+    <CategoryFilter v-if="!hideCategories" :terms="productCategoryTerms" />
+  </div>
   <div class="container flex items-start gap-16" v-if="hasProducts">
-    <Filters v-if="storeSettings.showFilters" />
-
+    <!-- <Filters v-if="storeSettings.showFilters" /> -->
     <div class="w-full">
       <div class="flex items-center justify-between w-full gap-4 mt-8 md:gap-8">
         <ProductResultCount />

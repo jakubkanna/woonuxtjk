@@ -1,10 +1,15 @@
 export default defineNuxtConfig({
-
+  // set child theme folder
+  srcDir: "./theme/app",
   // Get all the pages, components, composables and plugins from the parent theme
-  extends: ['./woonuxt_base'],
+  extends: ["./woonuxt_base"],
 
-  components: [{ path: './components', pathPrefix: false }],
+  components: [{ path: "./components", pathPrefix: false }],
 
+  //
+  tailwindcss: {
+    configPath: "./theme/tailwind.config.ts",
+  },
   /**
    * Depending on your servers capabilities, you may need to adjust the following settings.
    * It will affect the build time but also increase the reliability of the build process.
@@ -19,6 +24,6 @@ export default defineNuxtConfig({
       interval: 1000,
       failOnError: false,
     },
-    minify: true
+    minify: true,
   },
 });
