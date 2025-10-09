@@ -12,7 +12,7 @@ const hasProducts = computed<boolean>(
   () => Array.isArray(allProducts) && allProducts.length > 0
 );
 
-// Define the product category taxonomy name
+// Define the PRODUCTCATEGORY constant
 const PRODUCTCATEGORY = "product_cat";
 
 const { data: termsData } = await useAsyncGql("getAllTerms", {

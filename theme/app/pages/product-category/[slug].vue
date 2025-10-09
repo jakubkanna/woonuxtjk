@@ -1,22 +1,23 @@
 <script setup lang="ts">
+import { TaxonomyEnum } from "#woo";
+
 const { setProducts, updateProductList } = useProducts();
 const route = useRoute();
 const { storeSettings } = useAppConfig();
 const { isQueryEmpty } = useHelpers();
 
-const { data } = await useAsyncGql("getProducts");
-const allProducts = data.value?.products?.nodes as Product[];
-setProducts(allProducts);
+const slug = route.params.slug;
+
+const { data } = await useAsyncGql("getProducts", { slug });
+const productsInCategory = (data.value?.products?.nodes || []) as Product[];
+setProducts(productsInCategory);
 
 const hasProducts = computed<boolean>(
-  () => Array.isArray(allProducts) && allProducts.length > 0
+  () => Array.isArray(productsInCategory) && productsInCategory.length > 0
 );
 
-// Define the product category taxonomy name
-const PRODUCTCATEGORY = "product_cat";
-
 const { data: termsData } = await useAsyncGql("getAllTerms", {
-  taxonomies: [PRODUCTCATEGORY],
+  taxonomies: [TaxonomyEnum.PRODUCTCATEGORY],
 });
 const productCategoryTerms = termsData.value?.terms?.nodes?.filter(
   (term) => term.taxonomyName === "product_cat"

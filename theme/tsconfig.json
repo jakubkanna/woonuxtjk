@@ -1,0 +1,15 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "es2022",
+    "allowJs": true,
+    "types": ["@nuxt/image", "@nuxtjs/i18n", "nuxt-graphql-client"]
+  },
+  "include": [
+    "./**/*",
+    "../.nuxt/nuxt.d.ts",
+    "../.nuxt/imports.d.ts",
+    "../woonuxt_base/app/types/**/*.d.ts"
+  ]
+}
