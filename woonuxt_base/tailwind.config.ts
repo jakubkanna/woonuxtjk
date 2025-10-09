@@ -13,11 +13,14 @@ export default <Partial<Config>>{
       },
       colors: {
         primary: {
-          light: '#AE7DDD',
-          DEFAULT: process.env.PRIMARY_COLOR || '#7F54B2',
-          dark: '#754fa3',
+          light: '#898eff',
+          DEFAULT: process.env.PRIMARY_COLOR || '#0009ff',
+          dark: '#0007b4',
         },
         kanna: '#eeff87',
+        gray: {
+          100: '#e9e9e4',
+        },
       },
       aspectRatio: {
         '9/8': '1 / 1.125',
