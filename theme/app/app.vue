@@ -293,4 +293,7 @@ input:not([type="checkbox"]):not([type="radio"]):not([type="number"]):focus {
 input.has-error {
   @apply border-red-500;
 }
+a {
+  text-decoration: underline;
+}
 </style>

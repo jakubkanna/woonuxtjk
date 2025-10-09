@@ -8,6 +8,9 @@ export default <Partial<Config>>{
       padding: '1rem',
     },
     extend: {
+      fontFamily: {
+        sans: ['Helvetica', 'Arial', 'sans-serif'],
+      },
       colors: {
         primary: {
           light: '#AE7DDD',
