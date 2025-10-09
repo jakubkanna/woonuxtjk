@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { TaxonomyEnum } from "#woo";
+
 const { setProducts, updateProductList } = useProducts();
 const route = useRoute();
 const { storeSettings } = useAppConfig();
@@ -13,7 +15,7 @@ const hasProducts = computed<boolean>(
 );
 
 const { data: termsData } = await useAsyncGql("getAllTerms", {
-  taxonomies: ["PRODUCTCATEGORY"],
+  taxonomies: [TaxonomyEnum.PRODUCTCATEGORY],
 });
 const productCategoryTerms = termsData.value?.terms?.nodes?.filter(
   (term) => term.taxonomyName === "product_cat"
@@ -42,7 +44,7 @@ useHead({
     <h1 class="text-8xl">Shop</h1>
   </div>
   <div class="p-4 border-b border-black">
-    <CategoryFilter v-if="!hideCategories" :terms="productCategoryTerms" />
+    <CategoryFilter :terms="productCategoryTerms" />
   </div>
   <div class="container flex items-start gap-16" v-if="hasProducts">
     <!-- <Filters v-if="storeSettings.showFilters" /> -->

@@ -25,7 +25,7 @@ const selectCategory = (slug) => {
 <template>
   <div class="py-3">
     <div class="flex flex-wrap items-center gap-2">
-      <span class="font-mono">Display by:</span>
+      <span class="font-mono">Filter by:</span>
       <template v-for="term in terms" :key="term.slug">
         <button
           class="btn btn-sm btn-outline-dark mx-1 px-3 py-1 rounded border border-black text-black hover:bg-black hover:text-white transition text-sm"

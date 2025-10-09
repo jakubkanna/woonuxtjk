@@ -259,17 +259,6 @@ input[type="radio"]:after {
   left: 4px;
 }
 
-input[type="checkbox"]:checked:after,
-input[type="checkbox"] + label,
-input[type="radio"] + label {
-  @apply cursor-pointer text-gray-600 hover:text-primary;
-}
-
-input[type="checkbox"]:checked + label,
-input[type="radio"]:checked + label {
-  @apply text-gray-800 hover:text-primary-dark;
-}
-
 input[type="checkbox"]:checked,
 input[type="radio"]:checked {
   @apply bg-primary border-0;
@@ -283,5 +272,25 @@ input[type="checkbox"]:checked:after {
 input[type="radio"]:checked:after {
   opacity: 1;
   transform: scale(1);
+}
+
+input {
+  @apply text-black;
+}
+
+input:not([type="checkbox"]):not([type="radio"]):not([type="number"]) {
+  @apply bg-transparent border border-black rounded py-2 outline-none transition w-full shadow-none;
+}
+
+input:not([type="checkbox"]):not([type="radio"]) {
+  @apply bg-transparent border border-black rounded py-2 outline-none transition;
+}
+
+input:not([type="checkbox"]):not([type="radio"]):not([type="number"]):focus {
+  @apply bg-white border-black;
+}
+
+input.has-error {
+  @apply border-red-500;
 }
 </style>

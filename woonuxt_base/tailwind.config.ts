@@ -14,6 +14,7 @@ export default <Partial<Config>>{
           DEFAULT: process.env.PRIMARY_COLOR || '#7F54B2',
           dark: '#754fa3',
         },
+        kanna: '#eeff87',
       },
       aspectRatio: {
         '9/8': '1 / 1.125',
