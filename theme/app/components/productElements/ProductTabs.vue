@@ -62,24 +62,34 @@ const show = ref(initialTab);
       <div v-if="show === 1 && hasSpecifications" class="m-8">
         <table class="w-full border-black border-collapse text-sm">
           <tbody>
-            <th></th>
             <tr
-              v-for="(attr, index) in product?.attributes?.nodes ?? []"
+              v-for="attr in product?.attributes?.nodes ?? []"
               :key="attr?.id"
-              :class="
-                index !== (product?.attributes?.nodes?.length ?? 0) - 1
-                  ? 'border-b border-black'
-                  : ''
-              "
             >
-              <th
-                scope="row"
-                class="border-r border-black text-left p-2 font-medium w-1/3 align-top"
-              >
-                {{ attr?.label }}
-              </th>
-              <td class="p-2 align-top">
-                {{ (attr?.options ?? []).join(", ") }}
+              <th scope="row">{{ attr?.label }}</th>
+              <td>{{ (attr?.options ?? []).join(", ") }}</td>
+            </tr>
+            <tr>
+              <th>{{ $t("messages.shop.sku") }}</th>
+              <td>
+                <div v-if="storeSettings.showSKU && product.sku">
+                  {{ product.sku || "N/A" }}
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <th>{{ $t("messages.shop.category", 3) }}</th>
+              <td>
+                <div class="product-categories">
+                  <NuxtLink
+                    v-for="category in product.productCategories.nodes"
+                    :key="category.databaseId"
+                    :to="`/product-category/${decodeURIComponent(category?.slug || '')}`"
+                    class="hover:text-primary"
+                    :title="category.name || ''"
+                    >{{ category.name }}<span class="comma"> </span>
+                  </NuxtLink>
+                </div>
               </td>
             </tr>
           </tbody>
@@ -112,6 +122,26 @@ const show = ref(initialTab);
   background: black;
   color: white;
 }
-</style>
 
-<
+/* Table container */
+table {
+  @apply w-full border-collapse text-sm;
+  border: 1px solid black;
+}
+
+/* Table rows */
+table tr {
+  @apply border-b border-black;
+}
+
+/* Table headers */
+table th {
+  @apply border-r border-black text-left p-2 font-medium align-top;
+  width: 33%;
+}
+
+/* Table data cells */
+table td {
+  @apply p-2 align-top;
+}
+</style>

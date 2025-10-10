@@ -129,6 +129,7 @@ const disabledAddToCart = computed(() => {
       <div
         class="flex flex-col md:flex-row md:justify-between border-b border-black"
       >
+        <!-- left -->
         <ProductImageGallery
           v-if="product.image"
           class="relative flex-1"
@@ -145,9 +146,9 @@ const disabledAddToCart = computed(() => {
         />
         <!-- right -->
         <div
-          class="lg:max-w-md xl:max-w-lg md:py-2 w-full border-l border-black p-4"
+          class="lg:max-w-md xl:max-w-lg w-full border-l border-black flex flex-col"
         >
-          <div class="flex justify-between mb-4">
+          <div class="flex justify-between border-b border-black p-4">
             <div class="flex-1">
               <h1
                 class="flex flex-wrap items-center gap-2 mb-2 text-2xl font-sesmibold"
@@ -171,57 +172,62 @@ const disabledAddToCart = computed(() => {
             />
           </div>
 
-          <div class="grid gap-2 my-8 text-sm empty:hidden">
+          <div
+            class="grid gap-2 text-sm empty:hidden border-b border-black p-4"
+          >
             <div v-if="!isExternalProduct" class="flex items-center gap-2">
               <span class="text-gray-400"
                 >{{ $t("messages.shop.availability") }}:
               </span>
               <StockStatus :stockStatus @updated="mergeLiveStockStatus" />
             </div>
-            <div
-              class="flex items-center gap-2"
-              v-if="storeSettings.showSKU && product.sku"
-            >
-              <span class="text-gray-400">{{ $t("messages.shop.sku") }}: </span>
-              <span>{{ product.sku || "N/A" }}</span>
-            </div>
           </div>
 
           <div
-            class="mb-8 font-light prose"
-            v-html="product.shortDescription || product.description"
+            v-if="product.shortDescription"
+            class="font-light prose border-b border-black p-4"
+            v-html="product.shortDescription"
           />
 
-          <hr />
-
-          <form @submit.prevent="addToCart(selectProductInput)">
+          <form
+            @submit.prevent="addToCart(selectProductInput)"
+            class="flex-1 flex flex-col justify-between"
+          >
             <AttributeSelections
               v-if="
                 isVariableProduct && product.attributes && product.variations
               "
-              class="mt-4 mb-8"
+              class="flex-1 p-4 border-b border-black"
               :attributes="product.attributes.nodes"
               :defaultAttributes="product.defaultAttributes"
               :variations="product.variations.nodes"
               @attrs-changed="updateSelectedVariations"
             />
-            <div
-              v-if="isVariableProduct || isSimpleProduct"
-              class="fixed bottom-0 left-0 z-10 flex items-center w-full gap-4 p-4 mt-12 bg-white md:static md:bg-transparent bg-opacity-90 md:p-0"
-            >
+
+            <div v-if="isVariableProduct || isSimpleProduct" class="p-4">
+              <div class="text-sm">Quantity</div>
               <input
                 v-model="quantity"
                 type="number"
                 min="1"
                 aria-label="Quantity"
-                class="bg-white border flex text-left p-2.5 w-20 gap-4 items-center justify-center focus:outline-none"
+                class="m-2 p-2 flex text-left max-w-16 items-center justify-center focus:outline-none"
               />
+            </div>
+
+            <div class="flex">
               <AddToCartButton
-                class="flex-1 w-full md:max-w-xs"
+                class="flex-1 w-full py-8 border-t border-black h-[87px]"
                 :disabled="disabledAddToCart"
                 :class="{ loading: isUpdatingCart }"
               />
+              <div
+                class="flex flex-wrap p-4 px-6 border-t border-l border-black"
+              >
+                <WishlistButton :product />
+              </div>
             </div>
+
             <a
               v-if="isExternalProduct && product.externalUrl"
               :href="product.externalUrl"
@@ -237,31 +243,7 @@ const disabledAddToCart = computed(() => {
               storeSettings.showProductCategoriesOnSingleProduct &&
               product.productCategories
             "
-          >
-            <div class="grid gap-2 my-8 text-sm">
-              <div class="flex items-center gap-2">
-                <span class="text-gray-400"
-                  >{{ $t("messages.shop.category", 2) }}:</span
-                >
-                <div class="product-categories">
-                  <NuxtLink
-                    v-for="category in product.productCategories.nodes"
-                    :key="category.databaseId"
-                    :to="`/product-category/${decodeURIComponent(category?.slug || '')}`"
-                    class="hover:text-primary"
-                    :title="category.name || 'Untitled'"
-                    >{{ category.name }}<span class="comma">, </span>
-                  </NuxtLink>
-                </div>
-              </div>
-            </div>
-            <hr />
-          </div>
-
-          <div class="flex flex-wrap gap-4">
-            <WishlistButton :product />
-            <ShareButton :product />
-          </div>
+          ></div>
         </div>
       </div>
       <!-- tabs -->
