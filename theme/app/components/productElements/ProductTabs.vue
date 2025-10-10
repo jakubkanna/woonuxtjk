@@ -17,7 +17,7 @@ const show = ref(initialTab);
 
 <template>
   <div>
-    <nav class="border-b flex gap-8 tabs">
+    <nav class="tabs flex border-b border-black bg-black">
       <!-- Description -->
       <button
         v-if="hasDescription"
@@ -50,22 +50,27 @@ const show = ref(initialTab);
     </nav>
 
     <!-- Tab Content -->
-    <div class="tab-contents">
+    <div class="tab-contents border-b border-black">
       <!-- Description -->
       <div
         v-if="show === 0 && hasDescription"
-        class="font-light mt-8 prose"
+        class="text-black prose p-4"
         v-html="product.description"
       />
 
       <!-- Specifications -->
-      <div v-if="show === 1 && hasSpecifications" class="mt-8">
-        <table class="w-full border-y border-black border-collapse text-sm">
+      <div v-if="show === 1 && hasSpecifications" class="m-8">
+        <table class="w-full border-black border-collapse text-sm">
           <tbody>
+            <th></th>
             <tr
-              v-for="attr in product?.attributes?.nodes ?? []"
+              v-for="(attr, index) in product?.attributes?.nodes ?? []"
               :key="attr?.id"
-              class="border-b border-black"
+              :class="
+                index !== (product?.attributes?.nodes?.length ?? 0) - 1
+                  ? 'border-b border-black'
+                  : ''
+              "
             >
               <th
                 scope="row"
@@ -88,11 +93,25 @@ const show = ref(initialTab);
 </template>
 
 <style lang="postcss" scoped>
-.tabs button {
-  @apply border-transparent border-b-2 text-lg pb-8;
-  margin-bottom: -1px;
+.tabs {
+  @apply border-b border-black bg-black;
+  gap: 1px;
 }
+
+.tabs button {
+  @apply flex-1 text-white py-4 text-center font-medium transition-colors bg-gray-100;
+  color: black;
+}
+
+.tabs button:last-child {
+  border-right: none;
+}
+
+/* active state */
 .tabs button.active {
-  @apply border-primary text-primary;
+  background: black;
+  color: white;
 }
 </style>
+
+<

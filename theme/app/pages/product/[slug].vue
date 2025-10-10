@@ -249,7 +249,7 @@ const disabledAddToCart = computed(() => {
                     :key="category.databaseId"
                     :to="`/product-category/${decodeURIComponent(category?.slug || '')}`"
                     class="hover:text-primary"
-                    :title="category.name"
+                    :title="category.name || 'Untitled'"
                     >{{ category.name }}<span class="comma">, </span>
                   </NuxtLink>
                 </div>
@@ -270,7 +270,7 @@ const disabledAddToCart = computed(() => {
       </div>
       <!--  -->
       <div v-if="product.related && storeSettings.showRelatedProducts">
-        <div class="mb-4 text-xl font-semibold">
+        <div class="p-4 text-xl font-semibold border-b border-black">
           {{ $t("messages.shop.youMayLike") }}
         </div>
         <LazyProductRow
