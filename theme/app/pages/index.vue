@@ -41,7 +41,7 @@ useHead({
 
 <template>
   <div class="p-4 border-b border-black">
-    <h1 class="text-8xl">Shop</h1>
+    <h1 class="text-8xl"><a href="/" id="Shop">Shop</a></h1>
   </div>
   <div class="p-4 border-b border-black">
     <CategoryFilter :terms="productCategoryTerms" />
@@ -66,3 +66,9 @@ useHead({
     later.</NoProductsFound
   >
 </template>
+
+<style lang="postcss">
+#Shop {
+  text-decoration: none;
+}
+</style>

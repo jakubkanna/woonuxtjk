@@ -13,9 +13,9 @@ const { wishlistLink } = useAuth();
       </div>
       <div class="w-3/7 lg:w-auto">
         <div class="text-lg grid">
-          <a href="/">About</a>
-          <a href="/">Blog</a>
-          <a href="/">Artworks</a>
+          <a target="_blank" href="https://jakubkanna.com/bio">About</a>
+          <a target="_blank" href="https://jakubkanna.com/blog">Blog</a>
+          <a target="_blank" href="https://jakubkanna.com/works">Artworks</a>
         </div>
       </div>
 
