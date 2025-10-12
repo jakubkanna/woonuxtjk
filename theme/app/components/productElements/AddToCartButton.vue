@@ -1,5 +1,5 @@
 <script setup>
-const { cart } = useCart();
+const { cart, toggleCart } = useCart();
 const props = defineProps({
   disabled: { type: Boolean, default: false },
 });
@@ -10,8 +10,14 @@ const addToCartButtonText = computed(() =>
 );
 
 // stop loading when cart is updated
-watch(cart, (val) => {
+watch(cart, (newCart, oldCart) => {
   isLoading.value = false;
+
+  if (newCart?.contents?.itemCount > oldCart?.contents?.itemCount) {
+    setTimeout(() => {
+      toggleCart();
+    }, 500);
+  }
 });
 </script>
 

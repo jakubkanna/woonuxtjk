@@ -175,10 +175,12 @@ const disabledAddToCart = computed(() => {
           <div
             class="grid gap-2 text-sm empty:hidden border-b border-black p-4"
           >
-            <div v-if="!isExternalProduct" class="flex items-center gap-2">
-              <span class="font-mono"
-                >{{ $t("messages.shop.availability") }}:
-              </span>
+            <div
+              v-if="
+                !isExternalProduct && stockStatus !== StockStatusEnum.IN_STOCK
+              "
+              class="flex items-center gap-2"
+            >
               <StockStatus :stockStatus @updated="mergeLiveStockStatus" />
             </div>
           </div>
