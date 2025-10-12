@@ -68,7 +68,7 @@ onMounted(() => {
     >
       <!-- LOCAL -->
       <div v-if="attr.scope == 'LOCAL'" class="grid gap-2">
-        <div class="text-sm">
+        <div class="text-sm font-mono">
           {{ attr.label }}
           <span
             v-if="activeVariations.length && activeVariations[i]"
@@ -106,8 +106,8 @@ onMounted(() => {
         v-else-if="attr.name == 'pa_color' || attr.name == 'color'"
         class="grid gap-2"
       >
-        <div class="text-sm">
-          {{ $t("messages.general.color") }}
+        <div class="text-sm font-mono">
+          {{ $t("messages.general.color") }}:
           <span v-if="activeVariations.length" class="text-gray-400">{{
             getSelectedName(attr, activeVariations[i])
           }}</span>
@@ -143,8 +143,8 @@ onMounted(() => {
         v-else-if="attr.terms.nodes && attr.terms.nodes?.length > 8"
         class="grid gap-2"
       >
-        <div class="text-sm">
-          {{ attr.label }}
+        <div class="text-sm font-mono">
+          {{ attr.label }}:
           <span v-if="activeVariations.length" class="text-gray-400">{{
             getSelectedName(attr, activeVariations[i])
           }}</span>
@@ -173,11 +173,11 @@ onMounted(() => {
 
       <!-- CHECKBOXES -->
       <div v-else class="grid gap-2">
-        <div class="text-sm">
-          {{ attr.label }}
-          <span v-if="activeVariations.length" class="text-gray-400"
-            >: {{ getSelectedName(attr, activeVariations[i]) }}</span
-          >
+        <div class="text-sm font-mono">
+          {{ attr.label }}:
+          <span v-if="activeVariations.length" class="text-gray-400">{{
+            getSelectedName(attr, activeVariations[i])
+          }}</span>
         </div>
         <div class="flex gap-2">
           <span v-for="(term, index) in attr.terms.nodes" :key="index">

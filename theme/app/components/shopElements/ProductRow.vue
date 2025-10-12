@@ -9,7 +9,7 @@ const props = defineProps({
     <ProductCard
       v-for="(node, i) in products"
       :key="node.databaseId"
-      class="bg-gray-100 min-w-[200px] max-w-[300px] flex-1"
+      class="bg-gray-100 min-w-[200px] max-w-[300px] flex-shrink-0"
       :node="node"
       :index="i"
       :class="{
@@ -21,10 +21,7 @@ const props = defineProps({
 </template>
 
 <style lang="postcss" scoped>
-#YouMayLikeGrid {
-  gap: 1px;
-  background-color: black;
-  width: fit-content;
-  padding-right: 1px;
+#YouMayLikeGrid > * {
+  @apply border-r border-black;
 }
 </style>

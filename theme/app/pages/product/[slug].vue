@@ -176,7 +176,7 @@ const disabledAddToCart = computed(() => {
             class="grid gap-2 text-sm empty:hidden border-b border-black p-4"
           >
             <div v-if="!isExternalProduct" class="flex items-center gap-2">
-              <span class="text-gray-400"
+              <span class="font-mono"
                 >{{ $t("messages.shop.availability") }}:
               </span>
               <StockStatus :stockStatus @updated="mergeLiveStockStatus" />
@@ -205,7 +205,6 @@ const disabledAddToCart = computed(() => {
             />
 
             <div v-if="isVariableProduct || isSimpleProduct" class="p-4">
-              <div class="text-sm">Quantity</div>
               <input
                 v-model="quantity"
                 type="number"
@@ -252,12 +251,13 @@ const disabledAddToCart = computed(() => {
       </div>
       <!--  -->
       <div v-if="product.related && storeSettings.showRelatedProducts">
-        <div class="p-4 text-xl font-semibold border-b border-black">
+        <div class="p-4 text-xl font-semibold border-b border-black uppercase">
           {{ $t("messages.shop.youMayLike") }}
         </div>
         <LazyProductRow
           :products="product.related.nodes"
-          class="grid-cols-2 md:grid-cols-4 lg:grid-cols-5"
+          class="flex overflow-x-auto w-full"
+          style="scrollbar-width: thin"
         />
       </div>
     </div>
