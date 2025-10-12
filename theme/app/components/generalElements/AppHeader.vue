@@ -3,10 +3,9 @@ const { isShowingSearch } = useSearching();
 </script>
 
 <template>
-  <header class="sticky bottom-0 z-40 bg-kanna border-t border-black">
+  <header class="sticky bottom-0 z-30 bg-kanna border-t border-black">
     <div class="w-full px-4 flex items-center justify-between py-4">
       <div class="flex items-center">
-        <MenuTrigger class="lg:hidden" />
         <Logo class="md:w-[160px]" />
       </div>
 
