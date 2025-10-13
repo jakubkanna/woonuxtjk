@@ -28,10 +28,9 @@ const selectCategory = (slug) => {
       <span class="font-mono">Filter by:</span>
       <template v-for="term in terms" :key="term.slug">
         <button
-          class="btn btn-sm btn-outline-dark mx-1 px-3 py-1 rounded border border-black text-black hover:bg-black hover:text-white transition text-sm"
+          class="btn btn-sm btn-outline-dark mx-1 px-3 py-1 rounded border text-black hover:bg-black hover:text-white transition text-sm"
           :class="{
-            'bg-black text-white border-black text-xl':
-              selectedCategory === term.slug,
+            'bg-black text-white  text-xl': selectedCategory === term.slug,
           }"
           @click="selectCategory(term.slug)"
         >

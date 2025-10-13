@@ -17,7 +17,7 @@ const show = ref(initialTab);
 
 <template>
   <div>
-    <nav class="tabs flex border-b border-black bg-black">
+    <nav class="tabs flex border-b bg-black">
       <!-- Description -->
       <button
         v-if="hasDescription"
@@ -50,7 +50,7 @@ const show = ref(initialTab);
     </nav>
 
     <!-- Tab Content -->
-    <div class="tab-contents border-b border-black">
+    <div class="tab-contents border-b">
       <!-- Description -->
       <div
         v-if="show === 0 && hasDescription"
@@ -60,7 +60,7 @@ const show = ref(initialTab);
 
       <!-- Specifications -->
       <div v-if="show === 1 && hasSpecifications" class="m-8">
-        <table class="w-full border-black border-collapse text-sm">
+        <table class="w-full border-collapse text-sm">
           <tbody>
             <tr
               v-for="attr in product?.attributes?.nodes ?? []"
@@ -104,7 +104,7 @@ const show = ref(initialTab);
 
 <style lang="postcss" scoped>
 .tabs {
-  @apply border-b border-black bg-black;
+  @apply border-b  bg-black;
   gap: 1px;
 }
 
@@ -131,12 +131,12 @@ table {
 
 /* Table rows */
 table tr {
-  @apply border-b border-black;
+  @apply border-b;
 }
 
 /* Table headers */
 table th {
-  @apply border-r border-black text-left p-2 font-medium align-top;
+  @apply border-r  text-left p-2 font-medium align-top;
   width: 33%;
 }
 

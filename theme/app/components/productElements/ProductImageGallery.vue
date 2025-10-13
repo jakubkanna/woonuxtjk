@@ -50,7 +50,7 @@ const imgWidth = 640;
     <NuxtImg
       class="object-contain w-full min-w-[350px]"
       :class="{
-        'border-b border-black': gallery.nodes.length, // conditionally adds these classes
+        'border-b ': gallery.nodes.length, // conditionally adds these classes
       }"
       :width="imgWidth"
       :height="imgWidth"

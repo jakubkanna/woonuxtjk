@@ -109,7 +109,7 @@ useSeoMeta({
         class="flex flex-col items-center justify-center flex-1 mb-12"
       >
         <Icon name="ion:cart-outline" size="156" class="opacity-25 mb-5" />
-        <h2 class="text-2xl font-bold mb-2">
+        <h2 class="text-3xl font-bold mb-2">
           {{ $t("messages.shop.cartEmpty") }}
         </h2>
         <span class="text-gray-400 mb-4">{{
@@ -128,10 +128,12 @@ useSeoMeta({
         class="container flex flex-wrap items-start gap-8 my-16 justify-evenly lg:gap-20"
         @submit.prevent="payNow"
       >
-        <div class="grid w-full max-w-2xl gap-8 checkout-form md:flex-1">
+        <div
+          class="grid w-full max-w-2xl gap-8 checkout-form md:flex-1 border p-4 rounded-md"
+        >
           <!-- Customer details -->
           <div v-if="!viewer && customer.billing">
-            <h2 class="w-full mb-2 text-2xl font-semibold leading-none">
+            <h2 class="w-full mb-2 text-3xl font-semibold leading-none">
               Contact Information
             </h2>
             <p class="mt-1 text-sm text-gray-500">
@@ -195,7 +197,7 @@ useSeoMeta({
           </div>
 
           <div>
-            <h2 class="w-full mb-3 text-2xl font-semibold">
+            <h2 class="w-full mb-3 text-3xl font-semibold">
               {{ $t("messages.billing.billingDetails") }}
             </h2>
             <BillingDetails v-model="customer.billing" />
@@ -273,7 +275,7 @@ useSeoMeta({
 
         <OrderSummary>
           <button
-            class="flex items-center justify-center w-full gap-3 p-3 mt-4 font-semibold text-center text-white rounded-lg shadow-md bg-primary hover:bg-primary-dark disabled:cursor-not-allowed disabled:bg-gray-400"
+            class="flex items-center justify-center w-full gap-3 p-4 mt-4 font-semibold text-center text-white rounded-lg border bg-primary hover:bg-primary-dark disabled:cursor-not-allowed disabled:bg-gray-400"
             :disabled="isCheckoutDisabled"
           >
             {{ buttonText
@@ -286,4 +288,12 @@ useSeoMeta({
   </div>
 </template>
 
-<style lang="postcss"></style>
+<style lang="postcss">
+textarea {
+  @apply bg-gray-100 rounded-md border;
+}
+
+label {
+  @apply font-mono;
+}
+</style>

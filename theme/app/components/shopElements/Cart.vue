@@ -4,9 +4,9 @@ const { cart, toggleCart, isUpdatingCart, emptyCart } = useCart();
 
 <template>
   <div
-    class="fixed top-0 bottom-0 right-0 z-50 flex flex-col w-11/12 max-w-lg overflow-x-hidden bg-gray-100 shadow-lg border-l border-black"
+    class="fixed top-0 bottom-0 right-0 z-50 flex flex-col w-11/12 max-w-lg overflow-x-hidden bg-gray-100 shadow-lg border-l"
   >
-    <div class="border-b border-black flex justify-between items-center p-4">
+    <div class="border-b flex justify-between items-center p-4">
       <!-- Left: Close Icon -->
       <button class="p-1" @click="toggleCart(false)" aria-label="Close cart">
         <Icon name="ion:close-outline" size="34" />
@@ -33,7 +33,7 @@ const { cart, toggleCart, isUpdatingCart, emptyCart } = useCart();
           <li
             v-for="item in cart.contents?.nodes"
             :key="item.key"
-            class="border-b border-black last:mb-4"
+            class="border-b last:mb-4"
           >
             <CartCard :item="item" />
           </li>
@@ -41,7 +41,7 @@ const { cart, toggleCart, isUpdatingCart, emptyCart } = useCart();
 
         <div>
           <NuxtLink
-            class="w-full block p-6 text-lg text-center text-white bg-primary justify-evenly hover:bg-primary-dark border-t border-black font-bold"
+            class="w-full block p-6 text-lg text-center text-white bg-primary justify-evenly hover:bg-primary-dark border-t font-bold"
             to="/checkout"
             @click.prevent="toggleCart()"
             id="CheckoutButton"

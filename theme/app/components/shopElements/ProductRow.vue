@@ -22,6 +22,6 @@ const props = defineProps({
 
 <style lang="postcss" scoped>
 #YouMayLikeGrid > * {
-  @apply border-r border-black;
+  @apply border-r;
 }
 </style>

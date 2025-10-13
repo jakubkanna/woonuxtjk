@@ -42,14 +42,14 @@ useHead({
 </script>
 
 <template>
-  <div class="p-4 border-b border-black">
+  <div class="p-4 border-b">
     <h1 class="text-8xl">Shop</h1>
   </div>
-  <div class="p-4 border-b border-black">
+  <div class="p-4 border-b">
     <CategoryFilter :terms="productCategoryTerms" />
   </div>
   <div
-    class="flex items-center justify-between w-full gap-4 p-4 md:gap-8 border-b border-black"
+    class="flex items-center justify-between w-full gap-4 p-4 md:gap-8 border-b"
   >
     <ProductResultCount />
     <OrderByDropdown
@@ -59,7 +59,7 @@ useHead({
     <ShowFilterTrigger v-if="storeSettings.showFilters" class="md:hidden" />
   </div>
   <div class="container flex items-start" v-if="hasProducts">
-    <div class="w-full border-x border-black">
+    <div class="w-full border-x">
       <ProductGrid />
     </div>
   </div>

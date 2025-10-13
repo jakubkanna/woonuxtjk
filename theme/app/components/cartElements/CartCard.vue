@@ -48,13 +48,13 @@ const moveToWishList = () => {
 </script>
 
 <template>
-  <SwipeCard @remove="removeItem" class="border-l border-b">
+  <SwipeCard @remove="removeItem" class="last:border-none border-b">
     <div v-if="productType" class="flex items-center gap-3 group">
       <NuxtLink :to="productSlug">
         <NuxtImg
           width="64"
           height="64"
-          class="w-32 h-32 skeleton border-r border-black"
+          class="w-32 h-32 skeleton border-r"
           :src="imgScr"
           :alt="productType.image?.altText || productType.name"
           :title="productType.image?.title || productType.name"

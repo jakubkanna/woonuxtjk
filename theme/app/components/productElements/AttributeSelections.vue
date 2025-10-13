@@ -209,12 +209,12 @@ onMounted(() => {
 
 <style lang="postcss">
 .radio-button {
-  @apply border border-black rounded-lg cursor-pointer bg-gray-100 text-sm text-center 
+  @apply border  rounded-lg cursor-pointer bg-gray-100 text-sm text-center 
          py-1.5 px-3 transition-all text-gray-800 inline-block hover:outline-gray-500;
 }
 
 .color-button {
-  @apply border border-black cursor-pointer bg-gray-100 rounded-2xl text-sm text-center 
+  @apply border  cursor-pointer bg-gray-100 rounded-2xl text-sm text-center 
          transition-all text-gray-800 inline-block hover:outline-gray-500;
   width: 2rem;
   height: 2rem;

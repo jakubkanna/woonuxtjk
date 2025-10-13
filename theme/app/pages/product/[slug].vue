@@ -117,18 +117,16 @@ const disabledAddToCart = computed(() => {
 </script>
 
 <template>
-  <main class="container relative xl:max-w-7xl border-x border-black p-0">
+  <main class="container relative xl:max-w-7xl border-x p-0">
     <div v-if="product">
       <SEOHead :info="product" />
       <Breadcrumb
         :product
-        class="p-4 border-b border-black"
+        class="p-4 border-b"
         v-if="storeSettings.showBreadcrumbOnSingleProduct"
       />
 
-      <div
-        class="flex flex-col md:flex-row md:justify-between border-b border-black"
-      >
+      <div class="flex flex-col md:flex-row md:justify-between border-b">
         <!-- left -->
         <ProductImageGallery
           v-if="product.image"
@@ -145,10 +143,8 @@ const disabledAddToCart = computed(() => {
           :alt="product?.name || 'Product'"
         />
         <!-- right -->
-        <div
-          class="lg:max-w-md xl:max-w-lg w-full border-l border-black flex flex-col"
-        >
-          <div class="flex justify-between border-b border-black p-4">
+        <div class="lg:max-w-md xl:max-w-lg w-full border-l flex flex-col">
+          <div class="flex justify-between border-b p-4">
             <div class="flex-1">
               <h1
                 class="flex flex-wrap items-center gap-2 mb-2 text-2xl font-sesmibold"
@@ -172,9 +168,7 @@ const disabledAddToCart = computed(() => {
             />
           </div>
 
-          <div
-            class="grid gap-2 text-sm empty:hidden border-b border-black p-4"
-          >
+          <div class="grid gap-2 text-sm empty:hidden border-b p-4">
             <div
               v-if="
                 !isExternalProduct && stockStatus !== StockStatusEnum.IN_STOCK
@@ -187,7 +181,7 @@ const disabledAddToCart = computed(() => {
 
           <div
             v-if="product.shortDescription"
-            class="font-light prose border-b border-black p-4"
+            class="font-light prose border-b p-4"
             v-html="product.shortDescription"
           />
 
@@ -199,7 +193,7 @@ const disabledAddToCart = computed(() => {
               v-if="
                 isVariableProduct && product.attributes && product.variations
               "
-              class="flex-1 p-4 border-b border-black"
+              class="flex-1 p-4 border-b"
               :attributes="product.attributes.nodes"
               :defaultAttributes="product.defaultAttributes"
               :variations="product.variations.nodes"
@@ -218,13 +212,11 @@ const disabledAddToCart = computed(() => {
 
             <div class="flex">
               <AddToCartButton
-                class="flex-1 w-full py-8 border-t border-black h-[87px]"
+                class="flex-1 w-full py-8 border-t h-[87px]"
                 :disabled="disabledAddToCart"
                 :class="{ loading: isUpdatingCart }"
               />
-              <div
-                class="flex flex-wrap p-4 px-6 border-t border-l border-black"
-              >
+              <div class="flex flex-wrap p-4 px-6 border-t border-l">
                 <WishlistButton :product />
               </div>
             </div>
@@ -253,7 +245,7 @@ const disabledAddToCart = computed(() => {
       </div>
       <!--  -->
       <div v-if="product.related && storeSettings.showRelatedProducts">
-        <div class="p-4 text-xl font-semibold border-b border-black uppercase">
+        <div class="p-4 text-xl font-semibold border-b uppercase">
           {{ $t("messages.shop.youMayLike") }}
         </div>
         <LazyProductRow

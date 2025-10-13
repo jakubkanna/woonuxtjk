@@ -14,7 +14,7 @@ watch([orderby, order], () => {
 <template>
   <div class="inline-flex ml-auto -space-x-px shadow-sm rounded-m isolate">
     <button
-      class="relative inline-flex items-center p-2 text-sm font-medium text-gray-500 border border-black rounded-l-md hover:bg-gray-50 focus:z-20"
+      class="relative inline-flex items-center p-2 text-sm font-medium text-gray-500 border rounded-l-md hover:bg-gray-50 focus:z-20"
       aria-label="Sort"
       @click="order = order === 'ASC' ? 'DESC' : 'ASC'"
     >
@@ -28,7 +28,7 @@ watch([orderby, order], () => {
     <select
       id="orderby-dropdown"
       v-model="orderby"
-      class="rounded-l-none border-black"
+      class="rounded-l-none"
       aria-label="Order by"
     >
       <option value="date">{{ $t("messages.general.latest") }}</option>

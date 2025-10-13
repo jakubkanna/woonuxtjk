@@ -73,7 +73,7 @@ const imagetoDisplay = computed<string>(() => {
         :title="node.image?.title || node.name"
         :loading="index <= 3 ? 'eager' : 'lazy'"
         :sizes="`sm:${imgWidth / 2}px md:${imgWidth}px`"
-        class="object-top object-cover w-full aspect-9/8 border-b border-black"
+        class="object-top object-cover w-full aspect-9/8 border-b"
         placeholder
         placeholder-class="blur-xl"
       />

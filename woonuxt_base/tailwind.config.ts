@@ -22,6 +22,9 @@ export default <Partial<Config>>{
           100: '#e9e9e4',
         },
       },
+      borderColor: {
+        DEFAULT: '#000000',
+      },
       aspectRatio: {
         '9/8': '1 / 1.125',
       },

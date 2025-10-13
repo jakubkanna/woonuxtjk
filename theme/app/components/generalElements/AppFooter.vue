@@ -4,7 +4,7 @@ const { wishlistLink } = useAuth();
 </script>
 
 <template>
-  <footer class="order-last bg-kanna border-t border-black">
+  <footer class="order-last bg-kanna border-t">
     <div
       class="container flex flex-wrap justify-between gap-12 my-24 md:gap-24"
     >
@@ -30,7 +30,7 @@ const { wishlistLink } = useAuth();
         </div>
       </div>
     </div>
-    <div class="border-t border-black flex items-center justify-center">
+    <div class="border-t flex items-center justify-center">
       <div class="copywrite">
         <p class="py-4 text-xs text-center">
           &copy; {{ new Date().getFullYear() }}
