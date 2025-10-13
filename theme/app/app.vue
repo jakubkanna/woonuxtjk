@@ -293,7 +293,17 @@ input:not([type="checkbox"]):not([type="radio"]):not([type="number"]):focus {
 input.has-error {
   @apply border-red-500;
 }
+
+/* For any input (except checkbox/radio) that has user text */
+input:not(:placeholder-shown):not([type="checkbox"]):not([type="radio"]),
+textarea:not(:placeholder-shown) {
+  @apply bg-white;
+}
+
 a {
   text-decoration: underline;
+}
+textarea {
+  @apply p-2 focus:bg-white focus:outline-none;
 }
 </style>
