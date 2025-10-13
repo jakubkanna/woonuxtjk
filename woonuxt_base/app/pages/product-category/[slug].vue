@@ -1,13 +1,27 @@
 <script setup lang="ts">
+import { TaxonomyEnum } from "#woo";
+
 const { setProducts, updateProductList } = useProducts();
-const { isQueryEmpty } = useHelpers();
-const { storeSettings } = useAppConfig();
 const route = useRoute();
+const { storeSettings } = useAppConfig();
+const { isQueryEmpty } = useHelpers();
+
 const slug = route.params.slug;
 
-const { data } = await useAsyncGql('getProducts', { slug });
+const { data } = await useAsyncGql("getProducts", { slug });
 const productsInCategory = (data.value?.products?.nodes || []) as Product[];
 setProducts(productsInCategory);
+
+const hasProducts = computed<boolean>(
+  () => Array.isArray(productsInCategory) && productsInCategory.length > 0
+);
+
+const { data: termsData } = await useAsyncGql("getAllTerms", {
+  taxonomies: [TaxonomyEnum.PRODUCTCATEGORY],
+});
+const productCategoryTerms = termsData.value?.terms?.nodes?.filter(
+  (term) => term.taxonomyName === "product_cat"
+);
 
 onMounted(() => {
   if (!isQueryEmpty.value) updateProductList();
@@ -16,28 +30,41 @@ onMounted(() => {
 watch(
   () => route.query,
   () => {
-    if (route.name !== 'product-category-slug') return;
+    if (route.name !== "products") return;
     updateProductList();
-  },
+  }
 );
 
 useHead({
-  title: 'Products',
-  meta: [{ hid: 'description', name: 'description', content: 'Products' }],
+  title: `Products`,
+  meta: [{ name: "description", content: "Discover our products" }],
 });
 </script>
 
 <template>
-  <div class="container flex items-start gap-16" v-if="productsInCategory.length">
-    <Filters v-if="storeSettings.showFilters" :hide-categories="true" />
-
-    <div class="w-full">
-      <div class="flex items-center justify-between w-full gap-4 mt-8 md:gap-8">
-        <ProductResultCount />
-        <OrderByDropdown class="hidden md:inline-flex" v-if="storeSettings.showOrderByDropdown" />
-        <ShowFilterTrigger v-if="storeSettings.showFilters" class="md:hidden" />
-      </div>
+  <div class="p-4 border-b">
+    <h1 class="text-8xl">Shop</h1>
+  </div>
+  <div class="p-4 border-b">
+    <CategoryFilter :terms="productCategoryTerms" />
+  </div>
+  <div
+    class="flex items-center justify-between w-full gap-4 p-4 md:gap-8 border-b"
+  >
+    <ProductResultCount />
+    <OrderByDropdown
+      class="hidden md:inline-flex"
+      v-if="storeSettings.showOrderByDropdown"
+    />
+    <ShowFilterTrigger v-if="storeSettings.showFilters" class="md:hidden" />
+  </div>
+  <div class="container flex items-start" v-if="hasProducts">
+    <div class="w-full border-x">
       <ProductGrid />
     </div>
   </div>
+  <NoProductsFound v-else
+    >No products found. Please try adjusting your filters or check back
+    later.</NoProductsFound
+  >
 </template>

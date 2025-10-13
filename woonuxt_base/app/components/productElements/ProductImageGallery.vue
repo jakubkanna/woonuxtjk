@@ -19,7 +19,10 @@ const imageToShow = ref(primaryImage.value);
 
 const galleryImages = computed(() => {
   // Add the primary image to the start of the gallery and remove duplicates
-  return [primaryImage.value, ...props.gallery.nodes].filter((img, index, self) => index === self.findIndex((t) => t?.databaseId === img?.databaseId));
+  return [primaryImage.value, ...props.gallery.nodes].filter(
+    (img, index, self) =>
+      index === self.findIndex((t) => t?.databaseId === img?.databaseId)
+  );
 });
 
 const changeImage = (image: any) => {
@@ -30,10 +33,12 @@ watch(
   () => props.activeVariation,
   (newVal) => {
     if (newVal?.image) {
-      const foundImage = galleryImages.value.find((img) => img.databaseId === newVal.image?.databaseId);
+      const foundImage = galleryImages.value.find(
+        (img) => img.databaseId === newVal.image?.databaseId
+      );
       if (foundImage) imageToShow.value = foundImage;
     }
-  },
+  }
 );
 
 const imgWidth = 640;
@@ -43,7 +48,10 @@ const imgWidth = 640;
   <div>
     <SaleBadge :node class="absolute text-base top-4 right-4" />
     <NuxtImg
-      class="rounded-xl object-contain w-full min-w-[350px]"
+      class="object-contain w-full min-w-[350px]"
+      :class="{
+        'border-b ': gallery.nodes.length, // conditionally adds these classes
+      }"
       :width="imgWidth"
       :height="imgWidth"
       :alt="imageToShow.altText || node.name"
@@ -51,12 +59,13 @@ const imgWidth = 640;
       :src="imageToShow.sourceUrl || FALLBACK_IMG"
       fetchpriority="high"
       placeholder
-      placeholder-class="blur-xl" />
-    <div v-if="gallery.nodes.length" class="my-4 gallery-images">
+      placeholder-class="blur-xl"
+    />
+    <div v-if="gallery.nodes.length" class="gallery-images">
       <NuxtImg
         v-for="galleryImg in galleryImages"
         :key="galleryImg.databaseId"
-        class="cursor-pointer rounded-xl"
+        class="cursor-pointer"
         :width="imgWidth"
         :height="imgWidth"
         :src="galleryImg.sourceUrl"
@@ -65,7 +74,8 @@ const imgWidth = 640;
         placeholder
         placeholder-class="blur-xl"
         loading="lazy"
-        @click.native="changeImage(galleryImg)" />
+        @click.native="changeImage(galleryImg)"
+      />
     </div>
   </div>
 </template>
@@ -74,11 +84,9 @@ const imgWidth = 640;
 .gallery-images {
   display: flex;
   overflow: auto;
-  gap: 1rem;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  gap: 1px;
+  background-color: black;
+  width: max-content;
 }
 
 .gallery-images img {
@@ -87,14 +95,7 @@ const imgWidth = 640;
   object-fit: cover;
 }
 
-@media (min-width: 768px) {
-  .gallery-images {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
-
-    img {
-      width: 100%;
-    }
-  }
+.gallery-images img:last-child {
+  padding-right: 1px;
 }
 </style>

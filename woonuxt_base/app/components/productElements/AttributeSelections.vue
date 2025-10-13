@@ -5,38 +5,48 @@ interface Props {
 }
 
 const { attributes, defaultAttributes } = defineProps<Props>();
-const emit = defineEmits(['attrs-changed']);
+const emit = defineEmits(["attrs-changed"]);
 
 const activeVariations = ref<VariationAttribute[]>([]);
 
 const getSelectedName = (attr: any, activeVariation?: VariationAttribute) => {
   if (attr?.terms?.nodes && activeVariation) {
-    return attr.terms.nodes.find((node: { slug: string }) => node.slug === activeVariation.value)?.name;
+    return attr.terms.nodes.find(
+      (node: { slug: string }) => node.slug === activeVariation.value
+    )?.name;
   }
 
-  return activeVariation?.value || '';
+  return activeVariation?.value || "";
 };
 
 const updateAttrs = () => {
   const selectedVariations = attributes.map((row): VariationAttribute => {
-    const radioValue = document.querySelector(`.name-${row.name.toLowerCase()}:checked`) as HTMLInputElement;
-    const dropdownValue = document.querySelector(`#${row.name}`) as HTMLSelectElement;
+    const radioValue = document.querySelector(
+      `.name-${row.name.toLowerCase()}:checked`
+    ) as HTMLInputElement;
+    const dropdownValue = document.querySelector(
+      `#${row.name}`
+    ) as HTMLSelectElement;
     const name = row.name.charAt(0).toLowerCase() + row.name.slice(1);
-    const value = radioValue?.value ?? dropdownValue?.value ?? '';
+    const value = radioValue?.value ?? dropdownValue?.value ?? "";
     return { name, value };
   });
 
   activeVariations.value = selectedVariations;
-  emit('attrs-changed', selectedVariations);
+  emit("attrs-changed", selectedVariations);
 };
 
 const setDefaultAttributes = () => {
   if (defaultAttributes?.nodes) {
     defaultAttributes?.nodes.forEach((attr: VariationAttribute) => {
-      const radio = document.querySelector(`.name-${attr.name?.toLowerCase()}[value="${attr.value}"]`) as HTMLInputElement;
+      const radio = document.querySelector(
+        `.name-${attr.name?.toLowerCase()}[value="${attr.value}"]`
+      ) as HTMLInputElement;
       if (radio) radio.checked = true;
-      const dropdown = document.querySelector(`#${attr.name}`) as HTMLSelectElement;
-      if (dropdown) dropdown.value = attr.value || '';
+      const dropdown = document.querySelector(
+        `#${attr.name}`
+      ) as HTMLSelectElement;
+      if (dropdown) dropdown.value = attr.value || "";
     });
   }
 };
@@ -50,13 +60,21 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flex flex-col gap-1 justify-between" v-if="attributes">
-    <div v-for="(attr, i) in attributes" :key="i" class="flex flex-wrap py-2 relative justify-between">
+  <div class="flex flex-col gap-1" v-if="attributes">
+    <div
+      v-for="(attr, i) in attributes"
+      :key="i"
+      class="flex flex-wrap py-2 relative justify-between"
+    >
       <!-- LOCAL -->
       <div v-if="attr.scope == 'LOCAL'" class="grid gap-2">
-        <div class="text-sm">
+        <div class="text-sm font-mono">
           {{ attr.label }}
-          <span v-if="activeVariations.length && activeVariations[i]" class="text-gray-400">: {{ getSelectedName(attr, activeVariations[i]) }}</span>
+          <span
+            v-if="activeVariations.length && activeVariations[i]"
+            class="text-gray-400"
+            >: {{ getSelectedName(attr, activeVariations[i]) }}</span
+          >
         </div>
         <div class="flex gap-2">
           <span v-for="(option, index) in attr.options" :key="index">
@@ -70,18 +88,29 @@ onMounted(() => {
                 :class="`name-${attr.name.toLowerCase()}`"
                 :name="attr.name"
                 :value="option"
-                @change="updateAttrs" />
-              <span class="radio-button" :class="`picker-${option}`" :title="`${attr.name}: ${option}`">{{ option }}</span>
+                @change="updateAttrs"
+              />
+              <span
+                class="radio-button"
+                :class="`picker-${option}`"
+                :title="`${attr.name}: ${option}`"
+                >{{ option }}</span
+              >
             </label>
           </span>
         </div>
       </div>
 
       <!-- COLOR SWATCHES -->
-      <div v-else-if="attr.name == 'pa_color' || attr.name == 'color'" class="grid gap-2">
-        <div class="text-sm">
-          {{ $t('messages.general.color') }}
-          <span v-if="activeVariations.length" class="text-gray-400">{{ getSelectedName(attr, activeVariations[i]) }}</span>
+      <div
+        v-else-if="attr.name == 'pa_color' || attr.name == 'color'"
+        class="grid gap-2"
+      >
+        <div class="text-sm font-mono">
+          {{ $t("messages.general.color") }}:
+          <span v-if="activeVariations.length" class="text-gray-400">{{
+            getSelectedName(attr, activeVariations[i])
+          }}</span>
         </div>
         <div class="flex gap-2">
           <span v-for="(term, termIndex) in attr.terms.nodes" :key="termIndex">
@@ -96,8 +125,13 @@ onMounted(() => {
                   :class="className(attr.name)"
                   :name="attr.name"
                   :value="term.slug"
-                  @change="updateAttrs" />
-                <span class="color-button" :class="`color-${term.slug}`" :title="`${attr.name}: ${term}`"></span>
+                  @change="updateAttrs"
+                />
+                <span
+                  class="color-button"
+                  :class="`color-${term.slug}`"
+                  :title="`${attr.name}: ${term}`"
+                ></span>
               </label>
             </Tooltip>
           </span>
@@ -105,20 +139,45 @@ onMounted(() => {
       </div>
 
       <!-- DROPDOWN -->
-      <div v-else-if="attr.terms.nodes && attr.terms.nodes?.length > 8" class="grid gap-2">
-        <div class="text-sm">
-          {{ attr.label }} <span v-if="activeVariations.length" class="text-gray-400">{{ getSelectedName(attr, activeVariations[i]) }}</span>
+      <div
+        v-else-if="attr.terms.nodes && attr.terms.nodes?.length > 8"
+        class="grid gap-2"
+      >
+        <div class="text-sm font-mono">
+          {{ attr.label }}:
+          <span v-if="activeVariations.length" class="text-gray-400">{{
+            getSelectedName(attr, activeVariations[i])
+          }}</span>
         </div>
-        <select :id="attr.name" :ref="attr.name" :name="attr.name" required class="border-white shadow" @change="updateAttrs">
-          <option disabled hidden>{{ $t('messages.general.choose') }} {{ decodeURIComponent(attr.label) }}</option>
-          <option v-for="(term, dropdownIndex) in attr.terms.nodes" :key="dropdownIndex" :value="term.slug" v-html="term.name" :selected="dropdownIndex == 0" />
+        <select
+          :id="attr.name"
+          :ref="attr.name"
+          :name="attr.name"
+          required
+          class="border-white shadow"
+          @change="updateAttrs"
+        >
+          <option disabled hidden>
+            {{ $t("messages.general.choose") }}
+            {{ decodeURIComponent(attr.label) }}
+          </option>
+          <option
+            v-for="(term, dropdownIndex) in attr.terms.nodes"
+            :key="dropdownIndex"
+            :value="term.slug"
+            v-html="term.name"
+            :selected="dropdownIndex == 0"
+          />
         </select>
       </div>
 
       <!-- CHECKBOXES -->
       <div v-else class="grid gap-2">
-        <div class="text-sm">
-          {{ attr.label }} <span v-if="activeVariations.length" class="text-gray-400">: {{ getSelectedName(attr, activeVariations[i]) }}</span>
+        <div class="text-sm font-mono">
+          {{ attr.label }}:
+          <span v-if="activeVariations.length" class="text-gray-400">{{
+            getSelectedName(attr, activeVariations[i])
+          }}</span>
         </div>
         <div class="flex gap-2">
           <span v-for="(term, index) in attr.terms.nodes" :key="index">
@@ -132,8 +191,14 @@ onMounted(() => {
                 :class="className(attr.name)"
                 :name="attr.name"
                 :value="term.slug"
-                @change="updateAttrs" />
-              <span class="radio-button" :class="`picker-${term.slug}`" :title="`${attr.name}: ${term.slug}`">{{ term.name }}</span>
+                @change="updateAttrs"
+              />
+              <span
+                class="radio-button"
+                :class="`picker-${term.slug}`"
+                :title="`${attr.name}: ${term.slug}`"
+                >{{ term.name }}</span
+              >
             </label>
           </span>
         </div>
@@ -144,44 +209,47 @@ onMounted(() => {
 
 <style lang="postcss">
 .radio-button {
-  @apply border-transparent border-white rounded-lg cursor-pointer outline bg-gray-50 border-2 text-sm text-center outline-2 outline-gray-100 py-1.5 px-3 transition-all text-gray-800 inline-block hover:outline-gray-500;
+  @apply border  rounded-lg cursor-pointer bg-gray-100 text-sm text-center 
+         py-1.5 px-3 transition-all text-gray-800 inline-block hover:outline-gray-500;
 }
 
 .color-button {
-  @apply border-transparent border-white cursor-pointer outline bg-gray-50 border-2 rounded-2xl text-sm text-center outline-2 outline-gray-100 transition-all text-gray-800 inline-block hover:outline-gray-500;
+  @apply border  cursor-pointer bg-gray-100 rounded-2xl text-sm text-center 
+         transition-all text-gray-800 inline-block hover:outline-gray-500;
   width: 2rem;
   height: 2rem;
 }
 
+/* color swatches */
 .color-green {
   @apply bg-green-500;
 }
-
 .color-blue {
   @apply bg-blue-500;
 }
-
 .color-red {
   @apply bg-red-500;
 }
-
 .color-yellow {
   @apply bg-yellow-500;
 }
-
 .color-orange {
   @apply bg-orange-500;
 }
-
 .color-purple {
   @apply bg-purple-500;
 }
-
 .color-black {
   @apply bg-black;
 }
 
-input[type='radio']:checked ~ span {
-  @apply outline outline-2 outline-gray-500;
+/* ✅ Selected text/option buttons → black background + white text */
+input[type="radio"]:checked ~ .radio-button {
+  @apply bg-black text-white outline outline-2 outline-black;
+}
+
+/* ✅ Selected color buttons → black outline only */
+input[type="radio"]:checked ~ .color-button {
+  @apply outline outline-2 outline-black;
 }
 </style>
