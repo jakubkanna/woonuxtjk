@@ -3,7 +3,7 @@ const route = useRoute();
 const { isShowingCart, toggleCart } = useCart();
 const { isShowingMobileMenu, toggleMobileMenu, addBodyClass, removeBodyClass } = useHelpers();
 const { siteName } = useAppConfig();
-
+const { message } = useAppConfig().promoNotice;
 const closeCartAndMenu = () => {
   toggleCart(false);
   toggleMobileMenu(false);
@@ -26,6 +26,7 @@ useHead({
 <template>
   <NuxtLoadingIndicator />
   <div class="flex flex-col min-h-screen">
+    <PromoNotice v-if="message" :message="message" />
     <Transition name="slide-from-right">
       <LazyCart v-if="isShowingCart" />
     </Transition>
@@ -293,5 +294,8 @@ a {
 }
 textarea {
   @apply p-2 focus:bg-white focus:outline-none;
+}
+button {
+  text-decoration: none;
 }
 </style>
