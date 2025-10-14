@@ -95,7 +95,7 @@ useSeoMeta({
             <button
               v-if="orderIsNotCompleted"
               type="button"
-              class="inline-flex items-center justify-center p-2 bg-white border rounded-md"
+              class="inline-flex items-center justify-center p-2 border rounded-md"
               title="Refresh order"
               aria-label="Refresh order"
               @click="refreshOrder">
@@ -105,28 +105,28 @@ useSeoMeta({
           <p>{{ $t('messages.shop.orderThanks') }}</p>
         </template>
       </div>
-      <div v-if="order && !isGuest" class="flex-1 w-full p-4">
-        <div class="flex items-start justify-between">
+      <div v-if="order && !isGuest" class="w-full flex flex-col">
+        <div class="flex items-start justify-between p-4 border-b">
           <div class="w-[21%]">
-            <div class="mb-2 text-xs text-gray-400 uppercase">
+            <div class="mb-2 text-xs text-gray-400 uppercase font-mono">
               {{ $t('messages.shop.order') }}
             </div>
             <div class="leading-none">#{{ order.databaseId! }}</div>
           </div>
           <div class="w-[21%]">
-            <div class="mb-2 text-xs text-gray-400 uppercase">
+            <div class="mb-2 text-xs text-gray-400 uppercase font-mono">
               {{ $t('messages.general.date') }}
             </div>
             <div class="leading-none">{{ formatDate(order.date) }}</div>
           </div>
           <div class="w-[21%]">
-            <div class="mb-2 text-xs text-gray-400 uppercase">
+            <div class="mb-2 text-xs text-gray-400 uppercase font-mono">
               {{ $t('messages.general.status') }}
             </div>
             <OrderStatusLabel v-if="order.status" :order="order" />
           </div>
           <div class="w-[21%]">
-            <div class="mb-2 text-xs text-gray-400 uppercase">
+            <div class="mb-2 text-xs text-gray-400 uppercase font-mono">
               {{ $t('messages.general.paymentMethod') }}
             </div>
             <div class="leading-none">{{ order.paymentMethodTitle }}</div>
@@ -134,11 +134,11 @@ useSeoMeta({
         </div>
 
         <template v-if="order.lineItems">
-          <div class="grid gap-2">
-            <div v-for="item in order.lineItems.nodes" :key="item.id" class="flex items-center justify-between gap-8">
+          <div class="grid gap-2 border-b">
+            <div v-for="item in order.lineItems.nodes" :key="item.id" class="flex items-center justify-between gap-8 p-4">
               <NuxtLink v-if="item.product?.node" :to="`/product/${item.product.node.slug}`">
                 <NuxtImg
-                  class="w-16 h-16 rounded-xl"
+                  class="w-16 h-16 rounded-xl border"
                   :src="item.variation?.node?.image?.sourceUrl || item.product.node?.image?.sourceUrl || '/images/placeholder.png'"
                   :alt="item.variation?.node?.image?.altText || item.product.node?.image?.altText || 'Product image'"
                   :title="item.variation?.node?.image?.title || item.product.node?.image?.title || 'Product image'"
@@ -149,7 +149,7 @@ useSeoMeta({
               <div class="flex-1 leading-tight">
                 {{ item.variation ? item.variation?.node?.name : item.product?.node.name! }}
               </div>
-              <div class="text-sm text-gray-600">Qty. {{ item.quantity }}</div>
+              <div class="text-sm text-gray-600 font-mono">Qty. {{ item.quantity }}</div>
               <span class="text-sm font-semibold">{{ formatPrice(item.total!) }}</span>
             </div>
           </div>
@@ -159,7 +159,7 @@ useSeoMeta({
           <DownloadableItems :downloadableItems="downloadableItems" />
         </div>
 
-        <div>
+        <div class="p-4">
           <div class="flex justify-between">
             <span>{{ $t('messages.shop.subtotal') }}</span>
             <span v-html="order.subtotal"></span>

@@ -1,8 +1,7 @@
 <script setup lang="ts">
 const route = useRoute();
 const { isShowingCart, toggleCart } = useCart();
-const { isShowingMobileMenu, toggleMobileMenu, addBodyClass, removeBodyClass } =
-  useHelpers();
+const { isShowingMobileMenu, toggleMobileMenu, addBodyClass, removeBodyClass } = useHelpers();
 const { siteName } = useAppConfig();
 
 const closeCartAndMenu = () => {
@@ -11,14 +10,12 @@ const closeCartAndMenu = () => {
 };
 
 watch([isShowingCart, isShowingMobileMenu], () => {
-  isShowingCart.value || isShowingMobileMenu.value
-    ? addBodyClass("overflow-hidden")
-    : removeBodyClass("overflow-hidden");
+  isShowingCart.value || isShowingMobileMenu.value ? addBodyClass('overflow-hidden') : removeBodyClass('overflow-hidden');
 });
 
 watch(
   () => route.path,
-  () => closeCartAndMenu()
+  () => closeCartAndMenu(),
 );
 
 useHead({
@@ -40,11 +37,7 @@ useHead({
     <NuxtPage />
 
     <Transition name="fade">
-      <div
-        v-if="isShowingCart || isShowingMobileMenu"
-        class="bg-black opacity-50 inset-0 z-40 fixed"
-        @click="closeCartAndMenu"
-      />
+      <div v-if="isShowingCart || isShowingMobileMenu" class="bg-black opacity-50 inset-0 z-40 fixed" @click="closeCartAndMenu" />
     </Transition>
 
     <AppHeader />
@@ -69,7 +62,7 @@ pre {
 }
 
 select {
-  @apply bg-white border rounded-md font-medium  flex-1 text-sm p-1.5 pr-12 pl-4 text-gray-500 relative inline-flex items-center hover:bg-gray-50 focus:z-20 py-2 px-4 appearance-none;
+  @apply w-full bg-white border rounded-md font-medium  flex-1 text-sm p-1.5 pr-12 pl-4 text-gray-500 relative inline-flex items-center hover:bg-gray-50 focus:z-20 py-2 px-4 appearance-none;
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 16 16'%3E%3Cpath stroke='%23333' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M4 6l4 4 4-4'/%3E%3C/svg%3E")
     center right 10px no-repeat;
   background-size: 1rem;
@@ -203,17 +196,12 @@ select {
 
 img.skeleton {
   animation: skelaton 2000ms infinite cubic-bezier(0.4, 0, 0.2, 1);
-  background-image: linear-gradient(
-    90deg,
-    #f0f0f0 25%,
-    #e0e0e0 50%,
-    #f0f0f0 75%
-  );
+  background-image: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
   background-size: 200% 100%;
 }
 
-input[type="checkbox"],
-input[type="radio"] {
+input[type='checkbox'],
+input[type='radio'] {
   @apply bg-white border rounded-lg cursor-pointer font-sans outline-none border-gray-300 w-full p-3 transition-all duration-150 appearance-none hover:border-primary;
 
   width: 1em;
@@ -224,19 +212,19 @@ input[type="radio"] {
   padding: 0;
 }
 
-input[type="radio"] {
+input[type='radio'] {
   border-radius: 50%;
 }
 
-input[type="checkbox"]:after,
-input[type="radio"]:after {
-  content: "";
+input[type='checkbox']:after,
+input[type='radio']:after {
+  content: '';
   display: block;
   opacity: 0;
   transition: all 250ms cubic-bezier(0.65, -0.43, 0.4, 1.71);
 }
 
-input[type="checkbox"]:after {
+input[type='checkbox']:after {
   width: 5px;
   height: 9px;
   border: 2px solid #fff;
@@ -248,7 +236,7 @@ input[type="checkbox"]:after {
   left: 6.5px;
 }
 
-input[type="radio"]:after {
+input[type='radio']:after {
   width: 6px;
   height: 6px;
   border-radius: 50%;
@@ -259,17 +247,17 @@ input[type="radio"]:after {
   left: 4px;
 }
 
-input[type="checkbox"]:checked,
-input[type="radio"]:checked {
+input[type='checkbox']:checked,
+input[type='radio']:checked {
   @apply bg-primary border-0;
 }
 
-input[type="checkbox"]:checked:after {
+input[type='checkbox']:checked:after {
   opacity: 1;
   transform: rotate(45deg) translate(-1px, 1px) scale(1);
 }
 
-input[type="radio"]:checked:after {
+input[type='radio']:checked:after {
   opacity: 1;
   transform: scale(1);
 }
@@ -278,15 +266,15 @@ input {
   @apply text-black;
 }
 
-input:not([type="checkbox"]):not([type="radio"]):not([type="number"]) {
+input:not([type='checkbox']):not([type='radio']):not([type='number']) {
   @apply bg-transparent border  rounded p-2 outline-none transition w-full shadow-none;
 }
 
-input:not([type="checkbox"]):not([type="radio"]) {
+input:not([type='checkbox']):not([type='radio']) {
   @apply bg-transparent border  rounded py-2 outline-none transition;
 }
 
-input:not([type="checkbox"]):not([type="radio"]):not([type="number"]):focus {
+input:not([type='checkbox']):not([type='radio']):not([type='number']):focus {
   @apply bg-white;
 }
 
@@ -295,7 +283,7 @@ input.has-error {
 }
 
 /* For any input (except checkbox/radio) that has user text */
-input:not(:placeholder-shown):not([type="checkbox"]):not([type="radio"]),
+input:not(:placeholder-shown):not([type='checkbox']):not([type='radio']),
 textarea:not(:placeholder-shown) {
   @apply bg-white;
 }
