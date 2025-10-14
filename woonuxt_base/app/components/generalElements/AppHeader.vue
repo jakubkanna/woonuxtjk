@@ -9,9 +9,7 @@ const { isShowingSearch } = useSearching();
         <Logo class="md:w-[160px]" />
       </div>
 
-      <div
-        class="flex justify-end items-center md:w-[160px] flex-1 ml-auto gap-4 md:gap-6"
-      >
+      <div class="flex justify-end items-center md:w-[160px] flex-1 ml-auto gap-4 md:gap-6">
         <ProductSearch class="hidden sm:inline-flex max-w-[320px] w-[60%]" />
         <SearchTrigger />
         <div class="flex gap-4 items-center">
