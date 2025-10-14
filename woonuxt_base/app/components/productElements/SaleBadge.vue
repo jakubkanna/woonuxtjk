@@ -7,19 +7,17 @@ const { node } = defineProps({
 const { storeSettings } = useAppConfig();
 
 const salePercentage = computed((): string => {
-  if (!node?.rawSalePrice || !node?.rawRegularPrice) return "";
+  if (!node?.rawSalePrice || !node?.rawRegularPrice) return '';
   const salePrice = parseFloat(node?.rawSalePrice);
   const regularPrice = parseFloat(node?.rawRegularPrice);
   return Math.round(((salePrice - regularPrice) / regularPrice) * 100) + ` %`;
 });
 
-const showSaleBadge = computed(
-  () => node.rawSalePrice && storeSettings.saleBadge !== "hidden"
-);
+const showSaleBadge = computed(() => node.rawSalePrice && storeSettings.saleBadge !== 'hidden');
 
 const textToDisplay = computed(() => {
-  if (storeSettings?.saleBadge === "percent") return salePercentage.value;
-  return t("messages.shop.onSale") ? t("messages.shop.onSale") : "Sale";
+  if (storeSettings?.saleBadge === 'percent') return salePercentage.value;
+  return t('messages.shop.onSale') ? t('messages.shop.onSale') : 'Sale';
 });
 </script>
 
@@ -29,7 +27,7 @@ const textToDisplay = computed(() => {
 
 <style lang="postcss" scoped>
 .blue-badge {
-  @apply rounded-md bg-blue-700 text-xs text-white tracking-tight px-1.5 leading-6 z-10;
+  @apply rounded-md bg-blue-700 text-xs text-white tracking-tight px-1.5 leading-6 z-10 border;
   background: blue;
 }
 </style>
