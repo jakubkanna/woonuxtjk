@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const { wooNuxtVersionInfo } = useHelpers();
 const { wishlistLink } = useAuth();
+const { message } = useAppConfig().promoNotice;
 </script>
 
 <template>
@@ -27,6 +28,7 @@ const { wishlistLink } = useAuth();
         </div>
       </div>
     </div>
+
     <div class="border-t flex items-center justify-center">
       <div class="copywrite">
         <p class="py-4 text-xs text-center">
