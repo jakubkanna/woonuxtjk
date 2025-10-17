@@ -28,9 +28,17 @@ watch(
     updateProductList();
   },
 );
+const animatedTitle = ref('');
+let animator: AnimatedTitle;
+onMounted(() => {
+  animator = new AnimatedTitle((value: string) => {
+    animatedTitle.value = value;
+  });
+  animator.animate('Shop');
+});
 
 useHead({
-  title: `Products`,
+  title: 'Shop',
   meta: [{ name: 'description', content: 'Discover our products' }],
 });
 </script>
@@ -38,7 +46,9 @@ useHead({
 <template>
   <main>
     <div class="p-4 border-b">
-      <h1 class="text-8xl"><a href="/" id="Shop">Shop</a></h1>
+      <h1 class="text-8xl">
+        <a href="/" id="Shop">{{ animatedTitle }}</a>
+      </h1>
     </div>
     <div class="p-4 border-b">
       <CategoryFilter :terms="productCategoryTerms" />

@@ -93,6 +93,30 @@ const disabledAddToCart = computed(() => {
   const isValidActiveVariation = isVariableProduct.value ? !!activeVariation.value : true;
   return isInvalidType || isOutOfStock || isCartUpdating || !isValidActiveVariation;
 });
+
+// Reactive reference for animated product name
+const animatedTitle = ref(product.value?.name || '');
+let titleAnimator: AnimatedTitle;
+
+onMounted(() => {
+  // Wait until product data is fully available
+  if (product.value?.name) {
+    titleAnimator = new AnimatedTitle((value: string) => {
+      animatedTitle.value = value;
+    });
+    titleAnimator.animate(product.value.name);
+  }
+});
+
+// If the product changes (e.g. on route param update), re-animate
+watch(
+  () => product.value?.name,
+  (newName) => {
+    if (newName && titleAnimator) {
+      titleAnimator.animate(newName);
+    }
+  },
+);
 </script>
 
 <template>
@@ -116,7 +140,7 @@ const disabledAddToCart = computed(() => {
           <div class="flex justify-between border-b p-4 border-t md:border-t-0">
             <div class="flex-1">
               <h1 class="flex flex-wrap items-center gap-2 mb-2 text-2xl font-sesmibold">
-                {{ type.name }}
+                {{ animatedTitle }}
                 <LazyWPAdminLink :link="`/wp-admin/post.php?post=${product.databaseId}&action=edit`">Edit</LazyWPAdminLink>
               </h1>
               <StarRating :rating="product.averageRating || 0" :count="product.reviewCount || 0" v-if="storeSettings.showReviews" />
