@@ -5,7 +5,7 @@ const { message } = useAppConfig().promoNotice;
 </script>
 
 <template>
-  <footer class="order-last bg-kanna border-t">
+  <footer class="order-last bg-kanna border-t z-30">
     <div class="container flex flex-wrap justify-between gap-12 my-24 md:gap-24">
       <div class="mr-auto">
         <WebsiteShortDescription />

@@ -24,7 +24,10 @@ export default defineNuxtConfig({
         { rel: 'manifest', href: '/favicon/site.webmanifest' },
       ],
     },
-    pageTransition: { name: 'page', mode: 'default' },
+    pageTransition: {
+      name: 'page',
+      mode: 'out-in',
+    },
   },
 
   plugins: [resolve('./app/plugins/init.ts')],

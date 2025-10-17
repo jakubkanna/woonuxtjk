@@ -15,6 +15,7 @@ if (!data.value?.product) {
     statusMessage: t('messages.shop.productNotFound'),
   });
 }
+await nextTick();
 
 const product = ref<Product>(data?.value?.product);
 const quantity = ref<number>(1);

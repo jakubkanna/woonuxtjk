@@ -164,24 +164,28 @@ select {
 
 .page-enter-active,
 .page-leave-active {
-  transition: opacity 20ms;
+  transition: transform 0.66s ease;
+  will-change: transform;
 }
 
-.page-enter,
+.page-enter-from {
+  transform: translateY(100%);
+}
+
+.page-enter-to {
+  transform: translateY(0);
+}
+
+.page-leave-from {
+  transform: translateY(0);
+}
+
 .page-leave-to {
-  opacity: 0;
+  transform: translateY(-100%);
 }
-
-.page-enter-active {
-  animation-duration: 200ms;
-  animation-name: fadeIn;
-  animation-timing-function: linear;
-  backface-visibility: hidden;
-}
-
-.page-leave-active {
-  animation-name: fadeOut;
-  animation-duration: 200ms;
+main.page-enter-active,
+main.page-leave-active {
+  @apply border-y;
 }
 
 @keyframes skelaton {
@@ -206,7 +210,6 @@ input[type='radio'] {
   width: 1em;
   height: 1em;
   position: relative;
-  cursor: pointer;
   border-radius: 4px;
   padding: 0;
 }
@@ -289,11 +292,25 @@ textarea:not(:placeholder-shown) {
 
 a {
   text-decoration: underline;
+  @apply cursor-pointer;
 }
 textarea {
   @apply p-2 focus:bg-white focus:outline-none;
 }
 button {
   text-decoration: none;
+  @apply cursor-pointer;
+}
+
+html {
+  cursor:
+    url('/icons/cursor-gothic-jk.svg') 16 16,
+    auto;
+}
+
+.cursor-pointer {
+  cursor:
+    url('/icons/pointer-gothic-jk.svg') 16 16,
+    pointer;
 }
 </style>
